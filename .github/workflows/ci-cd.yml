@@ -17,4 +17,6 @@ jobs:
           distribution: 'zulu'
 
       - name: Build with Maven
-        run: mvn package
+        run: |
+          cd backend/pom.xml 
+          mvn package
