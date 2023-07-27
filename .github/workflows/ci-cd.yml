@@ -5,7 +5,7 @@ on:
       - main 
 jobs:
   build:
-    runs-on: amazon/linux-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
