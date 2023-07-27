@@ -14,6 +14,14 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: 17
+          distribution: 'corretto'
+          architecture: x64
+          check-latest: false
+          server-id: github
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN
+          overwrite-settings: true
+          job-status: success
 
       - name: Build with Maven
         run: mvn package
