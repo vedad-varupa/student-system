@@ -38,11 +38,12 @@ jobs:
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          key: vedad-varupa-web-server-key.pem
           script: |
-            scp -i vedad-varupa-web-server-key.pem vedad-varupa-web-server-key.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/ec2-user/
-            cd /home/ec2-user/ && java -jar web-app.jar
-
+            mkdir -p /home/ec2-user/backend
+            cd /home/ec2-user/backend
+            curl -sSL -o web-app.jar "${{ github.server }}/owner/student-system/actions/artifacts/web-app.jar"
+            java -jar web-app.jar
 
 
 
