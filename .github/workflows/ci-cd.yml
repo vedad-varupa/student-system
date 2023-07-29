@@ -32,7 +32,12 @@ jobs:
           EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
       - name: Set permissions for SSH key
         run: chmod 600 vedad-varupa-web-server-key.pem 
-          
+      - name: Debug SSH key and directory
+        run: |
+            ls -la
+            cat vedad-varupa-web-server-key.pem
+        env:
+            EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}  
       - name: SSH into EC2 instance and deploy
         uses: appleboy/ssh-action@master
         with:
