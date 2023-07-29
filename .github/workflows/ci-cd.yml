@@ -35,8 +35,9 @@ jobs:
           script: |
             echo "$EC2_PRIVATE_KEY" > vedad-varupa-web-server-key.pem
             
-            chmod 400 vedad-varupa-web-server-key.pem
-            
+            mkdir -p ~/.ssh
+            cp vedad-varupa-web-server-key.pem ~/.ssh/id_rsa
+            chmod 600 ~/.ssh/id_rsa
             scp -i vedad-varupa-web-server-key.pem  $GITHUB_WORKSPACE/backend/target/web-app.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/ec2-user/
 
             ssh -i vedad-varupa-web-server-key.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "cd /home/ec2-user/ && java -jar web-app.jar"
