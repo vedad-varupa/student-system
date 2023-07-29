@@ -27,7 +27,7 @@ jobs:
           path: backend/target/web-app.jar
 
       - name: SSH into EC2 instance and deploy
-        uses: appleboy/ssh-action@v2
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
