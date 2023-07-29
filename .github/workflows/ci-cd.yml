@@ -32,10 +32,7 @@ jobs:
           EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
       - name: Set permissions for SSH key
         run: chmod 600 vedad-varupa-web-server-key.pem 
-        
-      - name: Copy SSH key to EC2 instance
-        run: scp -i vedad-varupa-web-server-key.pem vedad-varupa-web-server-key.pem ${EC2_USERNAME}@${EC2_HOST}:/home/ec2-user
-        
+          
       - name: SSH into EC2 instance and deploy
         uses: appleboy/ssh-action@master
         with:
@@ -43,10 +40,8 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           script: |
-          
-            scp -i vedad-varupa-web-server-key.pem  $GITHUB_WORKSPACE/backend/target/web-app.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/ec2-user/
-
-            ssh -i vedad-varupa-web-server-key.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "cd /home/ec2-user/ && java -jar web-app.jar"
+            scp -i vedad-varupa-web-server-key.pem vedad-varupa-web-server-key.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/ec2-user/
+            cd /home/ec2-user/ && java -jar web-app.jar
 
 
 
