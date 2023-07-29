@@ -33,7 +33,7 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           script: |
-            echo "$EC2_PRIVATE_KEY" > vedad-varupa-web-server-key.pem
+            echo "${EC2_PRIVATE_KEY}" > vedad-varupa-web-server-key.pem
             
             mkdir -p ~/.ssh
             cp vedad-varupa-web-server-key.pem ~/.ssh/id_rsa
