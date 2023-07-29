@@ -34,7 +34,7 @@ jobs:
         run: chmod 600 vedad-varupa-web-server-key.pem 
         
       - name: Copy SSH key to EC2 instance
-        run: scp -i vedad-varupa-web-server-key.pem vedad-varupa-web-server-key.pem ${EC2_USERNAME}@${EC2_HOST}:~/
+        run: scp -i vedad-varupa-web-server-key.pem vedad-varupa-web-server-key.pem ${EC2_USERNAME}@${EC2_HOST}:/home/ec2-user
         
       - name: SSH into EC2 instance and deploy
         uses: appleboy/ssh-action@master
