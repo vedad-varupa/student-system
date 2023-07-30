@@ -21,6 +21,9 @@ jobs:
           cd backend
           mvn clean install -Dmaven.test.skip=true
           
+      - name: Generate JAR file
+        run: mv target/*.jar target/web-app.jar
+        
       - name: Configure SSH key
         run: |
          mkdir -p ~/.ssh
