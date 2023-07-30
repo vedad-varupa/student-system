@@ -20,15 +20,24 @@ jobs:
         run: |
           cd backend
           mvn clean install -Dmaven.test.skip=true
-      - name: Upload JAR artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: web-app
-          path: backend/target/web-app.jar 
-    
-      - name: SSH into EC2 instance and deploy
+          
+      - name: Configure SSH key
         run: |
-          ssh StrictHostKeyChecking=no  ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "cd /home/ec2-user/ && java -jar web-app.jar"
+         mkdir -p ~/.ssh
+         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+         chmod 600 ~/.ssh/id_rsa
+         ssh-keyscan 54.204.107.31 >> ~/.ssh/known_hosts
+
+      - name: Connect to EC2 and run command
+        uses: appleboy/ssh-action@master
+        with:
+            host: 54.204.107.31
+            username: ec2-user
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
+            port: 22
+            script: |
+      
+             echo "Hello from GitHub Actions! I'm running on the EC2 instance."
 
 
 
