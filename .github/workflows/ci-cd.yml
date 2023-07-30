@@ -36,6 +36,16 @@ jobs:
          chmod 600 ~/.ssh/id_rsa
          ssh-keyscan 54.204.107.31 >> ~/.ssh/known_hosts 
 
+      - name: Copy JAR file to EC2
+        uses: appleboy/scp-action@master
+        with:
+         host: 54.204.107.31
+         username: ec2-user
+         key: ${{ secrets.SSH_PRIVATE_KEY }}
+         port: 22
+         source: ${{ steps.find_jar.outputs.jar_path }}
+         target: /home/ec2-user/web-app.jar
+
       - name: Connect to EC2 and run command
         uses: appleboy/ssh-action@master
         with:
