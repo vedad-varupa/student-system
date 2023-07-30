@@ -21,26 +21,20 @@ jobs:
           cd backend
           mvn clean install -Dmaven.test.skip=true
           
-      - name: Generate JAR file
+      - name: Find JAR file
+        id: find_jar
         run: |
-          mv target/*.jar target/web-app.jar || true
+         cd backend/target
+         export JAR_PATH=$(find . -name '*.jar' -type f)
+         echo "::set-output name=jar_path::$JAR_PATH"
+
         
       - name: Configure SSH key
         run: |
          mkdir -p ~/.ssh
          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
          chmod 600 ~/.ssh/id_rsa
-         ssh-keyscan 54.204.107.31 >> ~/.ssh/known_hosts
-
-      - name: Copy JAR to EC2 instance
-        uses: appleboy/scp-action@master
-        with:
-         host: 54.204.107.31
-         username: ec2-user
-         key: ${{ secrets.SSH_PRIVATE_KEY }}
-         port: 22
-         source: ./target/web-app.jar
-         target: /home/ec2-user/web-app.jar 
+         ssh-keyscan 54.204.107.31 >> ~/.ssh/known_hosts 
 
       - name: Connect to EC2 and run command
         uses: appleboy/ssh-action@master
