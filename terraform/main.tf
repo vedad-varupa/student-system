@@ -1,4 +1,3 @@
-
 resource "aws_security_group" "webapp_db_sg" {
   name= "webapp-sg"
 
