@@ -46,6 +46,7 @@ jobs:
             key: ${{ secrets.SSH_PRIVATE_KEY }}
             port: 22
             script: |
+             chmod +x /home/ec2-user/maven-wrapper.jar
              java -jar /home/ec2-user/maven-wrapper.jar
 
 
