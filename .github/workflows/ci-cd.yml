@@ -38,9 +38,6 @@ jobs:
             cat vedad-varupa-web-server-key.pem
         env:
             EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}  
-            
-      - name: Copy JAR file to EC2 instance
-        run: scp -i vedad-varupa-web-server-key.pem backend/target/web-app.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/ec2-user/
       
       - name: SSH into EC2 instance and deploy
         run: |
