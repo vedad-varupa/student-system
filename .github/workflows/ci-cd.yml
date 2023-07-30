@@ -36,7 +36,6 @@ jobs:
             key: ${{ secrets.SSH_PRIVATE_KEY }}
             port: 22
             script: |
-      
              echo "Hello from GitHub Actions! I'm running on the EC2 instance."
 
 
