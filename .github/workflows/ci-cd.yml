@@ -24,24 +24,11 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: web-app
-          path: backend/target/web-app.jar
-          
-      - name: Set up SSH key
-        run: echo "${EC2_PRIVATE_KEY}" > vedad-varupa-web-server-key.pem
-        env:
-          EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
-      - name: Set permissions for SSH key
-        run: chmod 600 vedad-varupa-web-server-key.pem 
-      - name: Debug SSH key and directory
-        run: |
-            ls -la
-            cat vedad-varupa-web-server-key.pem
-        env:
-            EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}  
-      
+          path: backend/target/web-app.jar 
+    
       - name: SSH into EC2 instance and deploy
         run: |
-          ssh -i vedad-varupa-web-server-key.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "cd /home/ec2-user/ && java -jar web-app.jar"
+          ssh -i ${{ secrets.EC2_PRIVATE_KEY }}  ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "cd /home/ec2-user/ && java -jar web-app.jar"
 
 
 
