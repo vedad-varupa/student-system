@@ -28,7 +28,7 @@ jobs:
     
       - name: SSH into EC2 instance and deploy
         run: |
-          ssh -i ${{ secrets.EC2_PRIVATE_KEY }}  ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "cd /home/ec2-user/ && java -jar web-app.jar"
+          ssh -i C:\Users\Veda\.ssh\id_rsa  ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "cd /home/ec2-user/ && java -jar web-app.jar"
 
 
 
