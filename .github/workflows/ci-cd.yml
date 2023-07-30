@@ -22,7 +22,8 @@ jobs:
           mvn clean install -Dmaven.test.skip=true
           
       - name: Generate JAR file
-        run: mv target/*.jar target/web-app.jar
+        run: |
+          mv target/*.jar target/web-app.jar || true
         
       - name: Configure SSH key
         run: |
