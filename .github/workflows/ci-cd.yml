@@ -21,14 +21,6 @@ jobs:
           cd backend
           mvn clean install -Dmaven.test.skip=true
           
-      - name: Find JAR file
-        id: find_jar
-        run: |
-         cd backend/target
-         export JAR_PATH=$(find . -name '*.jar' -type f)
-         echo "::set-output name=jar_path::$JAR_PATH"
-
-        
       - name: Configure SSH key
         run: |
          mkdir -p ~/.ssh
@@ -43,8 +35,8 @@ jobs:
          username: ec2-user
          key: ${{ secrets.SSH_PRIVATE_KEY }}
          port: 22
-         source: ${{ steps.find_jar.outputs.jar_path }}
-         target: /home/ec2-user/web-app.jar
+         source: backend/.mvn/wrapper/maven-wrapper.jar
+         target: /home/ec2-user/maven-wrapper.jar
 
       - name: Connect to EC2 and run command
         uses: appleboy/ssh-action@master
