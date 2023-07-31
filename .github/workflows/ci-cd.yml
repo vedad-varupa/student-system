@@ -50,7 +50,7 @@ jobs:
              cd target
              sudo mv student-0.0.1-SNAPSHOT.jar /root/
              sudo su -
-             java -jar student-0.0.1-SNAPSHOT.jar
+             sudo  java -jar student-0.0.1-SNAPSHOT.jar
 
 
 
