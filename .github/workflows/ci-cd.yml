@@ -49,8 +49,20 @@ jobs:
          npm install
 
       - name: Build the application
-        run: npm run build
-        
+        run: |
+         cd frontend
+         npm run build
+         
+      - name: Copy  to EC2 instance
+        uses: appleboy/scp-action@v2
+        with:
+         host: 54.204.107.31
+         username: ec2-user
+         key: ${{ secrets.SSH_PRIVATE_KEY }}
+         port: 22
+         source: "frontend/build/"
+         target: "/home/ec2-user/"
+         
       - name: Connect to EC2 and run command
         uses: appleboy/ssh-action@master
         with:
