@@ -71,7 +71,7 @@ jobs:
             key: ${{ secrets.SSH_PRIVATE_KEY }}
             port: 22
             script: |
-             sudo mv backend/student-0.0.1-SNAPSHOT.jar /root/
+             sudo mv backend/target/student-0.0.1-SNAPSHOT.jar /root/
              sudo su -
              sudo  java -jar student-0.0.1-SNAPSHOT.jar
 
