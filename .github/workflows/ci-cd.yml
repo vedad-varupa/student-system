@@ -73,6 +73,7 @@ jobs:
             script: |
              sudo mv backend/target/student-0.0.1-SNAPSHOT.jar /root/
              sudo su -
+             sudo chmod 755 student-0.0.1-SNAPSHOT.jar
              sudo  java -jar student-0.0.1-SNAPSHOT.jar
 
 
