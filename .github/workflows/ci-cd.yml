@@ -60,8 +60,8 @@ jobs:
          username: ec2-user
          key: ${{ secrets.SSH_PRIVATE_KEY }}
          port: 22
-         source: frontend/build/
-         target: /home/ec2-user/
+         source: frontend/.
+         target: /home/ec2-user/frontend
          
       - name: Connect to EC2 and run command
         uses: appleboy/ssh-action@master
@@ -72,7 +72,10 @@ jobs:
             port: 22
             script: |
              sudo java -jar backend/target/student-0.0.1-SNAPSHOT.jar
-             sudo npm start
+             cd /home/ec2-user/frontend/
+             npm install --production
+             sudo npm start > /dev/null 2>&1 &
+             
 
 
 
