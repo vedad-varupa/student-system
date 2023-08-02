@@ -1,0 +1,60 @@
+name: CI/CD for Frontend - React
+on:
+  push:
+    branches:
+      - main 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+          
+      - name: Configure SSH key
+        run: |
+         mkdir -p ~/.ssh
+         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+         chmod 600 ~/.ssh/id_rsa
+         ssh-keyscan 54.204.107.31 >> ~/.ssh/known_hosts 
+
+         
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+         node-version: '18'
+
+      - name: Install dependencies
+        run: |
+         cd frontend
+         npm install
+
+      - name: Build the application
+        run: |
+         cd frontend
+         npm run build
+         
+      - name: Copy  to EC2 instance
+        uses: appleboy/scp-action@master
+        with:
+         host: 54.204.107.31
+         username: ec2-user
+         key: ${{ secrets.SSH_PRIVATE_KEY }}
+         port: 22
+         source: frontend/.
+         target: /home/ec2-user/
+         
+      - name: Connect to EC2 and run 
+        uses: appleboy/ssh-action@master
+        with:
+            host: 54.204.107.31
+            username: ec2-user
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
+            port: 22
+            script: |
+              cd frontend
+              npm install
+              npm start
+
+
+             
+     
