@@ -21,13 +21,6 @@ jobs:
           cd backend
           mvn clean install -Dmaven.test.skip=true
           
-      - name: Configure SSH key
-        run: |
-         mkdir -p ~/.ssh
-         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-         chmod 600 ~/.ssh/id_rsa
-         ssh-keyscan 54.204.107.31 >> ~/.ssh/known_hosts 
-
       - name: Copy JAR file to EC2
         uses: appleboy/scp-action@master
         with:
