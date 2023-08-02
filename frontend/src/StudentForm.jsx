@@ -22,10 +22,10 @@ const StudentForm = () => {
         },
         body: JSON.stringify(formData),
       });
-         alert(formData);
+         console.log(formData);
       if (response.ok) {
         // Handle success
-        console.log('Form submitted successfully');
+        alert('Form submitted successfully');
       } else {
         // Handle error
         alert('Form submission failed');
