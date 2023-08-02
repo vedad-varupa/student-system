@@ -9,15 +9,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-          
-      - name: Configure SSH key
-        run: |
-         mkdir -p ~/.ssh
-         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-         chmod 600 ~/.ssh/id_rsa
-         ssh-keyscan 54.204.107.31 >> ~/.ssh/known_hosts 
-
-         
+            
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
