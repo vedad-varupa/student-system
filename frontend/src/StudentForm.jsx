@@ -22,17 +22,17 @@ const StudentForm = () => {
         },
         body: JSON.stringify(formData),
       });
-         console.log(formData);
+         alert(formData);
       if (response.ok) {
         // Handle success
         console.log('Form submitted successfully');
       } else {
         // Handle error
-        console.error('Form submission failed');
+        alert('Form submission failed');
       }
     } catch (error) {
       // Handle network error
-      console.error('Error occurred while submitting form:', error);
+      alert('Error occurred while submitting form:', error);
     }
   };
 
