@@ -61,7 +61,7 @@ jobs:
          key: ${{ secrets.SSH_PRIVATE_KEY }}
          port: 22
          source: frontend/.
-         target: /home/ec2-user/frontend
+         target: /home/ec2-user/
          
       - name: Connect to EC2 and run command
         uses: appleboy/ssh-action@master
@@ -72,9 +72,29 @@ jobs:
             port: 22
             script: |
              sudo java -jar backend/target/student-0.0.1-SNAPSHOT.jar
-             cd /home/ec2-user/frontend/
-             npm install --production
-             sudo npm start > /dev/null 2>&1 &
+             
+      - name: Connect to EC2 and run 
+        uses: appleboy/ssh-action@master
+        with:
+            host: 54.204.107.31
+            username: ec2-user
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
+            port: 22
+            script: |
+              sudo cat > /etc/nginx/sites-available/default <<EOF
+              server {
+                 listen 80;
+                 server_name 54.204.107.31;  
+
+                 location / {
+                 root /home/ec2-user/frontend/;
+                 index index.html;
+                   try_files $uri $uri/ /index.html;
+                    }
+                 }
+              EOF
+              sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+              sudo systemctl restart nginx
              
 
 
