@@ -12,9 +12,11 @@ jobs:
         uses: actions/checkout@v2
       - name: Set up backend environment variables
         env:
+          DB_URL: ${{ secrets.DB_URL }}
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
+         echo "spring.datasource.username=${DB_URL}" >> backend/src/main/resources/application.properties
          echo "spring.datasource.username=${DB_USERNAME}" >> backend/src/main/resources/application.properties
          echo "spring.datasource.password=${DB_PASSWORD}" >> backend/src/main/resources/application.properties
          
