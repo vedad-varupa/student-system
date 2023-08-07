@@ -1,4 +1,6 @@
+
 resource "aws_security_group" "webapp_db_sg" {
+  
   name= "webapp-sg"
 
  ingress {
@@ -44,25 +46,22 @@ resource "aws_security_group" "webapp_db_sg" {
   }
 }
 
-resource "aws_instance" "webapp_and_db" {
+resource "aws_instance" "webapp" {
   ami           = "ami-05548f9cecf47b442" 
   instance_type = "t2.micro"     
   subnet_id     = "subnet-0c0f46c3eca6b2961"  
   key_name      = "vedad-varupa-web-server-key"
+
   tags = {
     Name = "Webapp"
   }
+
 user_data = <<-EOT
  #!/bin/bash
    sudo yum install epel-release -y
    sudo yum install nginx -y
    sudo systemctl start nginx
    sudo systemctl enable nginx
-   sudo rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
-   sudo yum install -y http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm
-   sudo yum install -y mysql-community-server
-   sudo systemctl enable mysqld
-   sudo service mysqld start
    sudo yum install java-17-amazon-correto-devel
    sudo wget https://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
    sudo sed -i s/\$releasever/7/g /etc/yum.repos.d/epel-apache-maven.repo
@@ -75,5 +74,26 @@ user_data = <<-EOT
     EOT
   
   vpc_security_group_ids = [aws_security_group.webapp_db_sg.id]
+
+  }
+
+  resource "aws_db_instance" "myrdsdb" {
+    engine = "mysql"
+    engine_version = "8.0.33"
+    allocated_storage = 200
+    instance_class = "db.m5.large"
+    storage_type = "gp3"
+    identifier = "student"
+    username = var.DB_USERNAME
+    password = var.DB_PASSWORD
+    publicly_accessible = true
+    skip_final_snapshot = true
+
+    tags = {
+      name="Myrdsdb"
+    }
+
+     vpc_security_group_ids = [aws_security_group.webapp_db_sg.id]
+
   }
 
