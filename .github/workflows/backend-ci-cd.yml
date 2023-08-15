@@ -34,23 +34,62 @@ jobs:
       - name: Copy JAR file to EC2
         uses: appleboy/scp-action@master
         with:
-         host: 3.83.201.33
+         host: 52.90.64.223
          username: ec2-user
          key: ${{ secrets.SSH_PRIVATE_KEY }}
          port: 22
          source: backend/target/student-0.0.1-SNAPSHOT.jar
          target: /home/ec2-user/
          
+      - name: Copy JAR file to EC2
+        uses: appleboy/scp-action@master
+        with:
+         host: 54.152.139.115
+         username: ec2-user
+         key: ${{ secrets.SSH_PRIVATE_KEY }}
+         port: 22
+         source: backend/target/student-0.0.1-SNAPSHOT.jar
+         target: /home/ec2-user/
     
+      - name: Copy JAR file to EC2
+        uses: appleboy/scp-action@master
+        with:
+          host: 100.26.133.66
+          username: ec2-user
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          source: backend/target/student-0.0.1-SNAPSHOT.jar
+          target: /home/ec2-user/
+
       - name: Connect to EC2 and run command
         uses: appleboy/ssh-action@master
         with:
-            host: 3.83.201.33
+            host: 52.90.64.223
             username: ec2-user
             key: ${{ secrets.SSH_PRIVATE_KEY }}
             port: 22
             script: |
              sudo java -jar backend/target/student-0.0.1-SNAPSHOT.jar -Dspring.profiles.active=production
+
+      - name: Connect to EC2 and run command
+        uses: appleboy/ssh-action@master
+        with:
+          host: 54.152.139.115
+          username: ec2-user
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+           sudo java -jar backend/target/student-0.0.1-SNAPSHOT.jar -Dspring.profiles.active=production
+
+      - name: Connect to EC2 and run command
+        uses: appleboy/ssh-action@master
+        with:
+         host: 100.26.133.66
+         username: ec2-user
+         key: ${{ secrets.SSH_PRIVATE_KEY }}
+         port: 22
+         script: |
+          sudo java -jar backend/target/student-0.0.1-SNAPSHOT.jar -Dspring.profiles.active=production
              
      
              
