@@ -58,7 +58,7 @@ jobs:
       - name: Connect to EC2 and run 
         uses: appleboy/ssh-action@master
         with:
-            host: 52.90.64.223
+            host: 52.90.64.223, 54.152.139.115, 100.26.133.66
             username: ec2-user
             key: ${{ secrets.SSH_PRIVATE_KEY }}
             port: 22
@@ -67,29 +67,7 @@ jobs:
               npm install
               npm start
 
-      - name: Connect to EC2 and run 
-        uses: appleboy/ssh-action@master
-        with:
-            host: 54.152.139.115
-            username: ec2-user
-            key: ${{ secrets.SSH_PRIVATE_KEY }}
-            port: 22
-            script: |
-              cd frontend
-              npm install
-              npm start
-
-      - name: Connect to EC2 and run 
-        uses: appleboy/ssh-action@master
-        with:
-            host: 100.26.133.66
-            username: ec2-user
-            key: ${{ secrets.SSH_PRIVATE_KEY }}
-            port: 22
-            script: |
-              cd frontend
-              npm install
-              npm start
+     
 
 
              
