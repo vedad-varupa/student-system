@@ -34,7 +34,7 @@ jobs:
       - name: Copy JAR file to EC2
         uses: appleboy/scp-action@master
         with:
-         host: 52.90.64.223
+         host: 44.207.6.29
          username: ec2-user
          key: ${{ secrets.SSH_PRIVATE_KEY }}
          port: 22
@@ -44,7 +44,7 @@ jobs:
       - name: Copy JAR file to EC2
         uses: appleboy/scp-action@master
         with:
-         host: 54.152.139.115
+         host: 44.193.211.72
          username: ec2-user
          key: ${{ secrets.SSH_PRIVATE_KEY }}
          port: 22
@@ -54,7 +54,7 @@ jobs:
       - name: Copy JAR file to EC2
         uses: appleboy/scp-action@master
         with:
-          host: 100.26.133.66
+          host: 54.234.24.226
           username: ec2-user
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
@@ -64,7 +64,7 @@ jobs:
       - name: Connect to EC2 and run command
         uses: appleboy/ssh-action@master
         with:
-            host: 52.90.64.223, 54.152.139.115, 100.26.133.66
+            host: 44.207.6.29, 44.193.211.72, 54.234.24.226
             username: ec2-user
             key: ${{ secrets.SSH_PRIVATE_KEY }}
             port: 22

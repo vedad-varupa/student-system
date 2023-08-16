@@ -1,7 +1,7 @@
 
 resource "aws_security_group" "webapp_db_sg" {
   
-  name= "webapp-sg"
+  name= "webapp-secgroup"
 
  ingress {
     from_port   = 22
@@ -190,3 +190,13 @@ resource "aws_autoscaling_schedule" "webapp_scale_out_schedule" {
   autoscaling_group_name = aws_autoscaling_group.webapp_asg.name
 }
 
+resource "aws_lb_listener" "alb_forward_listener" {
+  load_balancer_arn = aws_lb.webapp_lb.arn
+  port ="80"
+  protocol = "HTTP"
+
+  default_action {
+    type = "forward"
+    target_group_arn = aws_lb_target_group.webapp_tg.arn
+  }
+}
