@@ -59,9 +59,6 @@ resource "aws_instance" "webapp" {
 user_data = <<-EOT
  #!/bin/bash
    sudo yum install epel-release -y
-   sudo yum install nginx -y
-   sudo systemctl start nginx
-   sudo systemctl enable nginx
    sudo yum install java-17-amazon-correto-devel
    sudo wget https://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
    sudo sed -i s/\$releasever/7/g /etc/yum.repos.d/epel-apache-maven.repo
@@ -153,9 +150,6 @@ resource "aws_launch_configuration" "webapp_lc" {
   user_data = <<-EOT
  #!/bin/bash
    sudo yum install epel-release -y
-   sudo yum install nginx -y
-   sudo systemctl start nginx
-   sudo systemctl enable nginx
    sudo yum install java-17-amazon-correto-devel
    sudo wget https://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
    sudo sed -i s/\$releasever/7/g /etc/yum.repos.d/epel-apache-maven.repo
