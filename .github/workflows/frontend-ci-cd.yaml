@@ -65,7 +65,7 @@ jobs:
             script: |
               cd frontend
               npm install
-              npm start
+              npm start -- --port 8000
 
      
 
