@@ -2,7 +2,7 @@ package com.example.student;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin("http://localhost:8000")
 @RequestMapping("/api/students")
 
 public class StudentController {
