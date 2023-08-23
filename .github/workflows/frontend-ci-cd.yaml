@@ -55,8 +55,8 @@ jobs:
             port: 22
             script: |
               cd frontend
-              npm install
-              npm start 
+              sudo  npm install
+              sudo npm start 
 
      
 
